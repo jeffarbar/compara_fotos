@@ -1,7 +1,6 @@
 python3 -m venv env_face_math
 source env/bin/activate
 
-
 anyio==3.6.1
 appdirs==1.4.4
 asgiref==3.4.1
