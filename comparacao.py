@@ -18,7 +18,7 @@ def compare(imagem_1, imagem_2) -> bool:
     #Agora podemos ver que as duas codificações de face são da mesma pessoa com metodo compare_faces
 
     # quanto menor o valor de tolerance, mais criterioso se torna
-    results = face_recognition.compare_faces([foto_um_encoding], foto_dois_encoding, tolerance=0.58)
+    results = face_recognition.compare_faces([foto_um_encoding], foto_dois_encoding, tolerance=0.57)
 
     return results[0]
 
