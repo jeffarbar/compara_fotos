@@ -2,34 +2,38 @@ import face_recognition
 
 def compare(imagem_1, imagem_2) -> bool:
 
-    picture_of_me = face_recognition.load_image_file(imagem_1)
-    foto_um_encoding = face_recognition.face_encodings(picture_of_me)[0]
+    try:
+        load_imagem_1 = face_recognition.load_image_file(imagem_1)
+        encoding_imagem_1 = face_recognition.face_encodings(load_imagem_1)[0]
+    except:
+        raise Exception("Não foi possível localizar a imagem da primeira foto. Favor verificar se a foto esta rotacionada corretamente e sem mascara")
 
-    #print('Encoding da primeira imagem ' + str(foto_um_encoding))
+    try:
+        load_imagem_2 = face_recognition.load_image_file(imagem_2)
+        encoding_imagem_2 = face_recognition.face_encodings(load_imagem_2)[0]
+    except:
+        raise Exception("Não foi possível localizar a imagem da segunda foto. Favor verificar se a foto esta rotacionada corretamente e sem mascara")
 
-    #variavel foto_um_encoding agora contém uma 'codificação' universal de minhas características faciais que podem
-    #ser comparado a qualquer outra foto de um rosto
 
-    unknown_picture = face_recognition.load_image_file(imagem_2)
-    foto_dois_encoding = face_recognition.face_encodings(unknown_picture)[0]
+    try:
+        # quanto menor o valor de tolerance, mais criterioso se torna
+        results = face_recognition.compare_faces([encoding_imagem_1], encoding_imagem_2, tolerance=0.59)
 
-    #print('Encoding da segunda imagem ' + str(foto_dois_encoding))
-
-    #Agora podemos ver que as duas codificações de face são da mesma pessoa com metodo compare_faces
-
-    # quanto menor o valor de tolerance, mais criterioso se torna
-    results = face_recognition.compare_faces([foto_um_encoding], foto_dois_encoding, tolerance=0.59)
-
-    return results[0]
-
+        return results[0]
+    except:
+        raise Exception("Não foi comparar as imagens")
 
 
 if __name__ == "__main__":
 
-    result = compare("./imagens/sung_kang_2.jpg", "./imagens/sung_kang_1.jpg")
+    try:
+        result = compare("../imagens/sung_kang_1.jpg", "../imagens/erro_2.jpeg")
 
-    if result == True:
-        print("A foto um é da mesma pessoa da foto dois")
-    else:
-        print("A foto um NÃO é da mesma pessoa da foto dois")
+        if result == True:
+            print("A foto um é da mesma pessoa da foto dois")
+        else:
+            print("A foto um NÃO é da mesma pessoa da foto dois")
+
+    except Exception as ex:
+        print(ex)
 
