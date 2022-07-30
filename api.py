@@ -4,8 +4,10 @@ from fastapi import FastAPI, File
 from fastapi.middleware.cors import CORSMiddleware
 from response import Response
 import comparacao
+import salva_imagem as si 
 
-app = FastAPI()ss
+
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -28,13 +30,24 @@ async def compara(foto_1: bytes = File(...),
 
         result = comparacao.compare(img_1, img_2)
 
+        diretorio_uuid = si.salva(img_1, img_2, result)
+
         if result:
-            res = Response(0, "Deu Match")
+            res = Response(0, "Deu Match",diretorio_uuid)
         else:
-            res = Response(0, "Não Deu Match")
+            res = Response(0, "Não Deu Match", diretorio_uuid)
 
         return res
 
     except Exception as ex:
         return Response(1, ex)
 
+
+
+@app.post('/avaliacao')
+async def avaliacao(uuid: str,
+                  avaliacao: bool ) -> str:
+
+    si.salva_avaliacao(uuid,avaliacao)
+
+    return "OK"
