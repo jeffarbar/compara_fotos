@@ -1,4 +1,5 @@
 import face_recognition
+import constante as c
 
 def compare(imagem_1, imagem_2) -> bool:
 
@@ -17,7 +18,7 @@ def compare(imagem_1, imagem_2) -> bool:
 
     try:
         # quanto menor o valor de tolerance, mais criterioso se torna
-        results = face_recognition.compare_faces([encoding_imagem_1], encoding_imagem_2, tolerance=0.59)
+        results = face_recognition.compare_faces([encoding_imagem_1], encoding_imagem_2, tolerance=c.tolerance)
 
         return results[0]
     except:
