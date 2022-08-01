@@ -6,8 +6,6 @@ import threading
 import constante as c
 import logging
 
-logger = logging.getLogger(__name__)
-
 def salva(foto_1, foto_2, result) -> str:
 
     if c.salvar_imagem:
@@ -46,7 +44,7 @@ def salva(foto_1, foto_2, result) -> str:
             return diretorio_uuid
 
         except Exception as ex:
-            logger.error(ex)
+            logging.error(ex)
 
 
 

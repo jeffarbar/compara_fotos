@@ -36,6 +36,6 @@ pip3 install -r requirements.txt
 
 #iniciar API
 
-uvicorn api:app --reload --log-config /app/log.ini
+uvicorn api:app --reload 
 
 #Observação só roda no linux

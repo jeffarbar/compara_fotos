@@ -17,7 +17,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-logger = logging.getLogger(__name__)
 
 @app.post('/compara')
 async def compara(foto_1: bytes = File(...),
@@ -39,12 +38,12 @@ async def compara(foto_1: bytes = File(...),
         else:
             res = Response(0, "Não Deu Match", diretorio_uuid)
 
-        logger.info("Diretorio:" + diretorio_uuid + " Match foi " + str(result) )
+        logging.info("Diretorio:" + diretorio_uuid + " Match foi " + str(result) )
 
         return res
 
     except Exception as ex:
-        logger.error(ex)
+        logging.error(ex)
         return Response(1, ex)
 
 
@@ -55,6 +54,6 @@ async def avaliacao(uuid: str,
 
     si.salva_avaliacao(uuid,avaliacao)
 
-    logger.info( "Diretorio:" + uuid + " Avaliacao foi " + str(avaliacao) )
+    logging.info( "Diretorio:" + uuid + " Avaliacao foi " + str(avaliacao) )
 
     return "OK"
