@@ -4,6 +4,9 @@ from datetime import datetime
 from PIL import Image
 import threading
 import constante as c
+import logging
+
+logger = logging.getLogger(__name__)
 
 def salva(foto_1, foto_2, result) -> str:
 
@@ -43,7 +46,7 @@ def salva(foto_1, foto_2, result) -> str:
             return diretorio_uuid
 
         except Exception as ex:
-            print(ex)
+            logger.error(ex)
 
 
 
