@@ -38,12 +38,14 @@ async def compara(foto_1: bytes = File(...),
         else:
             res = Response(0, "Não Deu Match", diretorio_uuid)
 
-        logging.warn( "Diretorio:" + diretorio_uuid + " Match foi " + str(result) )
+        logging.info( "Diretorio:" + diretorio_uuid + " Match foi " + str(result) )
+        print("Diretorio:" + diretorio_uuid + " Match foi " + str(result))
 
         return res
 
     except Exception as ex:
         logging.error(ex)
+        print(ex)
         return Response(1, ex)
 
 
@@ -54,6 +56,7 @@ async def avaliacao(uuid: str,
 
     si.salva_avaliacao(uuid,avaliacao)
 
-    logging.warn( "Diretorio:" + uuid + " Avaliacao foi " + str(avaliacao) )
+    logging.info( "Diretorio:" + uuid + " Avaliacao foi " + str(avaliacao) )
+    print( "Diretorio:" + uuid + " Avaliacao foi " + str(avaliacao)  )
 
     return "OK"
