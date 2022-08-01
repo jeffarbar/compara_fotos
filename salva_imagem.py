@@ -8,13 +8,16 @@ import logging
 
 def salva(foto_1, foto_2, result) -> str:
 
-    if c.salvar_imagem:
+    
 
-        try:
-            atual = datetime.now() 
-            meu_uuid = str(uuid.uuid4())  
+    try:
+        atual = datetime.now() 
+        meu_uuid = str(uuid.uuid4())  
 
-            diretorio_uuid = "./" + meu_uuid + "_" + atual.strftime("%d%m%Y_%H%M%S")
+        diretorio_uuid = "./" + meu_uuid + "_" + atual.strftime("%d%m%Y_%H%M%S")
+        
+        if c.salvar_imagem:
+
             os.mkdir(diretorio_uuid)
 
             threads = list()
@@ -41,7 +44,8 @@ def salva(foto_1, foto_2, result) -> str:
             for thread in threads:
                 thread.join()
 
-            return diretorio_uuid
+            
+        return diretorio_uuid
 
         except Exception as ex:
             logging.error(ex)
