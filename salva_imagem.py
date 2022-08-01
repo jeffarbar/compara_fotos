@@ -44,11 +44,11 @@ def salva(foto_1, foto_2, result) -> str:
             for thread in threads:
                 thread.join()
 
-            
+
         return diretorio_uuid
 
-        except Exception as ex:
-            logging.error(ex)
+    except Exception as ex:
+        logging.error(ex)
 
 
 
