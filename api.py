@@ -5,7 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from response import Response
 import comparacao
 import salva_imagem as si 
-import logging
 
 
 app = FastAPI()
@@ -38,14 +37,12 @@ async def compara(foto_1: bytes = File(...),
         else:
             res = Response(0, "Não Deu Match", diretorio_uuid)
 
-        logging.info( "Diretorio:" + diretorio_uuid + " Match foi " + str(result) )
-        print("Diretorio:" + diretorio_uuid + " Match foi " + str(result))
+        app.logger.info("Diretorio:" + diretorio_uuid + " Match foi " + str(result) )
 
         return res
 
     except Exception as ex:
-        logging.error(ex)
-        print(ex)
+        app.logger.error(ex)
         return Response(1, ex)
 
 
@@ -56,7 +53,6 @@ async def avaliacao(uuid: str,
 
     si.salva_avaliacao(uuid,avaliacao)
 
-    logging.info( "Diretorio:" + uuid + " Avaliacao foi " + str(avaliacao) )
-    print( "Diretorio:" + uuid + " Avaliacao foi " + str(avaliacao)  )
+    app.logger.info( "Diretorio:" + uuid + " Avaliacao foi " + str(avaliacao) )
 
     return "OK"
